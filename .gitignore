@@ -1,4 +1,5 @@
 # HuggingFace cache
+.DS_Store
 adapters/
 checkpoints/
 datasets/

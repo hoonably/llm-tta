@@ -13,15 +13,27 @@ def compute_perplexity(prompt, model, tokenizer):
 단순 룰 기반 LoRA rank 선택 함수
 추후 이 자리에 MLP-based router 대체 가능
 """
+
+# TODO: 대부분 ppl이 낮게 나와서 임시로 수정함
 def training_rank(ppl):
-    if ppl < 10:  # 학습 안함
+    if ppl < 4:  # 학습 안함
         return 0
-    elif ppl < 20:
+    elif ppl < 7:
         return 2
-    elif ppl < 40:
+    elif ppl < 10:
         return 4
     else:
         return 8
+
+# def training_rank(ppl):
+#     if ppl < 10:  # 학습 안함
+#         return 0
+#     elif ppl < 20:
+#         return 2
+#     elif ppl < 40:
+#         return 4
+#     else:
+#         return 8
 
 def inference_rank(ppl):
     if ppl < 20:

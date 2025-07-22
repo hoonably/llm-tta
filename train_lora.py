@@ -30,7 +30,7 @@ tokenizer.pad_token = tokenizer.eos_token
 # 2. 데이터셋
 dataset = load_squad(tokenizer, split="train", limit=max_samples)
 collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
-dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False, collate_fn=collator)  #! shuffle=False로 변경해서 변동 없도록
+dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, collate_fn=collator)  #! shuffle=False로 변경하니 너무 PPL이 비슷한게 연속으로 나옴
 
 # 3. 모델 및 Flexi-LoRA 초기화
 print("Loading base model & applying Flexi-LoRA...")

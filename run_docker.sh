@@ -15,5 +15,4 @@ sudo docker run --gpus "\"device=$GPU_DEVICES\"" -it --rm \
   --name llm-tta-container \
   --workdir /workspace \
   -v "$PWD":/workspace \
-  -v "$PWD/.hf_cache":/root/.cache/huggingface \
   llm-tta bash

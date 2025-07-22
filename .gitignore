@@ -1,2 +1,4 @@
-.hf_cache
-adapters
+# HuggingFace cache
+checkpoints/
+adapters/
+__pycache__/

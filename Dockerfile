@@ -24,5 +24,8 @@ RUN pip install --upgrade pip && \
         sentencepiece \
         safetensors
 
+# PYTHONPATH 환경변수 설정
+ENV PYTHONPATH=/workspace
+
 # 캐시 정리
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*

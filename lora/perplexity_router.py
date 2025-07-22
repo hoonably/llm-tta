@@ -1,4 +1,4 @@
-# perplexity_router.py
+# lora.perplexity_router.py
 # 입력 문장의 perplexity 계산 및 그에 따른 LoRA rank 선택
 
 def compute_perplexity(prompt, model, tokenizer):

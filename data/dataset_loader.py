@@ -1,4 +1,4 @@
-# dataset_loader.py
+# data.dataset_loader.py
 # SQuAD / GSM8K 등 LLM TTA 실험용 데이터 로딩 및 전처리
 
 from datasets import load_dataset

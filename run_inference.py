@@ -1,12 +1,13 @@
-# run_adaptive_inference.py
+# run_inference.py
 # 입력에 따라 PPL 기반으로 LoRA adapter 선택 → 답변 생성 (TTA)
 
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from peft import PeftModel
-from dataset_loader import load_squad
-from perplexity_router import compute_perplexity, inference_rank
+from data.dataset_loader import load_squad
+from lora.perplexity_router import compute_perplexity, inference_rank
 import os
+from lora.lora_setup import add_all_lora_adapters
 
 model_id = "NousResearch/Llama-2-7b-hf"
 adapter_root = "./adapters"  # r2, r4, r8 저장된 경로
@@ -20,10 +21,8 @@ base_model = AutoModelForCausalLM.from_pretrained(
     device_map="auto"
 )
 
-# 2. Load all LoRA adapters
+# 2. Initialize PEFT wrapper and add adapters
 print("Loading LoRA adapters...")
-from peft import PeftModel, PeftConfig
-
 model = PeftModel.from_pretrained(base_model, os.path.join(adapter_root, "r8"))
 model.load_adapter(os.path.join(adapter_root, "r2"), adapter_name="r2")
 model.load_adapter(os.path.join(adapter_root, "r4"), adapter_name="r4")

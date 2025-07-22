@@ -1,7 +1,7 @@
-# model_download.py
+# scripts/model_download.py
 # # LLM & Tokenizer 다운로드 및 로딩
 
-from lora_setup import apply_lora
+from lora.lora_setup import apply_lora
 
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch

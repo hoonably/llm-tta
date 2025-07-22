@@ -8,7 +8,7 @@ import torch
 import os
 
 from data.dataset_loader import load_squad
-from lora.perplexity_router import compute_perplexity, training_ranks
+from lora.perplexity_router import compute_perplexity, training_rank
 from lora.lora_setup import patch_lora_layers
 
 # 설정
@@ -54,11 +54,12 @@ for step, batch in enumerate(dataloader):
     ppl = compute_perplexity(prompt, model, tokenizer)
 
     # ② rank 결정
-    ranks = training_ranks(ppl)
-    if not ranks:
-        print(f"[Step {step}] PPL={ppl:.2f}, skipped.")
+    rank = training_rank(ppl)
+    if rank == 0:  # 학습 안함
+        print(f"[Step {step}] PPL={ppl:.2f}, rank={rank}, skipping step.")
         continue
-    rank = r_max  # 단일 rank 선택 (추후 router로 교체 가능)
+
+    outputs = model(input_ids=input_ids, labels=labels, rank=rank)
 
     # ③ forward (rank 인자로 전달됨)
     outputs = model(input_ids=input_ids, labels=labels, rank=rank)

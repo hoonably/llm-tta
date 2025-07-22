@@ -38,5 +38,6 @@ class DynamicLoRALinear(nn.Module):
             lora_A_r = self.lora_A[:rank, :]
             lora_B_r = self.lora_B[:, :rank]
             delta = self.scaling * (lora_B_r @ lora_A_r)
+            delta = delta.to(dtype=x.dtype, device=x.device)
             result += nn.functional.linear(x, delta)
         return result

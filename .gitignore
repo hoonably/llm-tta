@@ -1,4 +1,5 @@
 # HuggingFace cache
-checkpoints/
 adapters/
+checkpoints/
+datasets/
 __pycache__/

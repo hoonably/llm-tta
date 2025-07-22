@@ -1,4 +1,4 @@
-# run_inference.py
+# inference.py
 # 입력 난이도에 따라 PPL 기반으로 LoRA adapter 선택 → 답변 생성 (TTA)
 
 from transformers import AutoModelForCausalLM, AutoTokenizer

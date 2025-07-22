@@ -5,7 +5,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from peft import PeftModel
 from dataset_loader import load_squad
-from perplexity_router import compute_perplexity, choose_lora_rank
+from perplexity_router import compute_perplexity, inference_rank
 import os
 
 model_id = "NousResearch/Llama-2-7b-hf"
@@ -41,7 +41,7 @@ for i, example in enumerate(dataset):
 
     # Compute PPL & select rank
     ppl = compute_perplexity(prompt, model, tokenizer)
-    rank = choose_lora_rank(ppl)
+    rank = inference_rank(ppl)
     adapter_name = f"r{rank}"
     model.set_adapter(adapter_name)
 

@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 from peft import LoraConfig, get_peft_model
 import os
 from dataset_loader import load_squad
-from perplexity_router import compute_perplexity, choose_lora_rank
+from perplexity_router import compute_perplexity, training_ranks
 
 # 설정
 model_id = "NousResearch/Llama-2-7b-hf"
@@ -71,7 +71,7 @@ for step, batch in enumerate(dataloader):
     # Prompt decode → PPL 평가 → rank 선택
     prompt = tokenizer.decode(input_ids[0], skip_special_tokens=True)
     ppl = compute_perplexity(prompt, model, tokenizer)
-    rank = choose_lora_rank(ppl)
+    rank = training_ranks(ppl)
     adapter_name = f"r{rank}"
 
     model.set_adapter(adapter_name)

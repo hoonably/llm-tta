@@ -72,6 +72,7 @@ for step, batch in enumerate(dataloader):
     t3 = time.perf_counter()
     outputs = model(input_ids=input_ids, labels=labels, rank=rank)
     loss = outputs.loss
+    t3_5 = time.perf_counter()
     loss.backward()
     t4 = time.perf_counter()
 
@@ -82,7 +83,7 @@ for step, batch in enumerate(dataloader):
 
     # 전체 타이밍
     print(f"[Step {step}] PPL={ppl:6.2f} → Rank={rank} → Loss={loss.item():.4f} | "
-          f"PPL Time: {t2 - t1:.2f}s | FW/BW: {t4 - t3:.2f}s | Optim: {t5 - t4:.2f}s | Total: {t5 - step_start:.2f}s")
+          f"PPL Time: {t2 - t1:.2f}s | FW: {t3_5 - t3:.2f}s | BW: {t4 - t3_5:.2f}s |Optim: {t5 - t4:.2f}s | Total: {t5 - step_start:.2f}s")
 
 # 6. 저장
 print("\n[Save] Saving Flexi-LoRA adapter...")

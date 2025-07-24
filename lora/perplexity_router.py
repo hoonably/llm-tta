@@ -1,6 +1,11 @@
 # lora.perplexity_router.py
 # 입력 문장의 perplexity 계산 및 그에 따른 LoRA rank 선택
 
+
+
+# 이 과정에서 정답(Response) 는 전혀 사용되지 않음.
+# 오직 입력 Prompt 자체의 자기 예측 난이도만 보는 것.
+# 그래서 이게 Test-Time Input Difficulty로 쓰이는 것.
 def compute_perplexity(prompt, model, tokenizer):
     import torch
     input_ids = tokenizer(prompt, return_tensors="pt").input_ids.cuda()
